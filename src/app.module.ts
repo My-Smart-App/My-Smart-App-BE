@@ -1,5 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { CookieMiddleware } from './middleware/cookie.middleware';
+import { MSAMiddleware } from './middleware/msa.middleware';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
@@ -15,22 +15,13 @@ import { User, UserSchema } from './user/user.schema';
       }),
     }),
 
-    MongooseModule.forFeature([
-      { name: User.name, schema: UserSchema }
-    ]),
-
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  controllers: [
-    UserController,
-  ],
-  providers: [
-    UserService
-  ],
+  controllers: [UserController],
+  providers: [UserService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(CookieMiddleware)
-      .forRoutes('*');  
+    consumer.apply(MSAMiddleware).forRoutes('*');
   }
 }
