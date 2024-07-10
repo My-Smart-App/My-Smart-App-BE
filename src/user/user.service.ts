@@ -20,7 +20,7 @@ export class UserService {
    * Retrieves all users from the database.
    * @returns An array of User entities representing all users in the database.
    */
-  async findAll(): Promise<User[]> {
+  public async findAll(): Promise<User[]> {
     return await this.userModel.find().exec();
   }
 
@@ -29,7 +29,7 @@ export class UserService {
    * @param RequestUserCreate
    * @returns created user
    */
-  async createUser(createUserDto: RequestUserCreate): Promise<User> {
+  public async createUser(createUserDto: RequestUserCreate): Promise<User> {
     const createdUser: User = new this.userModel(createUserDto);
     return await createdUser.save();
   }

@@ -13,4 +13,5 @@ export const enum AUTH_ERROR_MESSAGE {
   USERNAME_IS_NOT_EMPTY = 'Username must not be empty',
   PASSWORD_IS_STRING = 'Password must be a string',
   PASSWORD_IS_NOT_EMPTY = 'Password must not be empty',
+  UNAUTHORIZED = 'Unauthorized',
 }

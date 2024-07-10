@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 import { AUTH_ERROR_MESSAGE } from 'src/common/enum/error-message';
+import { User } from 'src/user/user.schema';
 
 interface IRequestLoginDTO {
   username: string;
@@ -19,8 +20,19 @@ export class ResquestLoginDTO implements IRequestLoginDTO {
   password: string;
 }
 
-export interface JWTPayload {
+export interface IJWTPayload {
   sub: string;
   username: string;
   role: string | string[];
+}
+
+export interface IRequestLoginValidator {
+  isValid: boolean;
+  errMsg: string | string[];
+  data: User | null;
+}
+
+export interface ResponseLogin {
+  token: string | null;
+  user: User | null;
 }
