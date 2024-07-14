@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import cookieParser from 'cookie-parser';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { MSAValidationPipe } from './common/validation/msa-validation';
+import { MSAValidationPipe } from './common/validation/msa-global.validator';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

@@ -1,4 +1,4 @@
-export const enum USER_ERROR_MESSAGE {
+export const enum UserErrorMessage {
   NAME_IS_STRING = 'Name must be a string',
   NAME_IS_NOT_EMPTY = 'Username must not be empty',
   AGE_IS_INTEGER = 'Age must be a number',
@@ -8,7 +8,7 @@ export const enum USER_ERROR_MESSAGE {
   DESCRIPTION_IS_STRING = 'Description must be a string',
 }
 
-export const enum AUTH_ERROR_MESSAGE {
+export const enum AuthErrorMessage {
   USERNAME_IS_STRING = 'Username must be a string',
   USERNAME_IS_NOT_EMPTY = 'Username must not be empty',
   PASSWORD_IS_STRING = 'Password must be a string',

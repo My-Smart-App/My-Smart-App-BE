@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
-import { AUTH_ERROR_MESSAGE } from 'src/common/enum/error-message';
+import { AuthErrorMessage } from 'src/common/enum/error-message';
 import { User } from 'src/user/user.schema';
+import { AppUser } from './app-user.schema';
 
 interface IRequestLoginDTO {
   username: string;
@@ -10,13 +11,13 @@ interface IRequestLoginDTO {
 
 export class ResquestLoginDTO implements IRequestLoginDTO {
   @ApiProperty({ example: 'admin', description: 'username of the account' })
-  @IsNotEmpty({ message: AUTH_ERROR_MESSAGE.USERNAME_IS_NOT_EMPTY })
-  @IsString({ message: AUTH_ERROR_MESSAGE.USERNAME_IS_STRING })
+  @IsNotEmpty({ message: AuthErrorMessage.USERNAME_IS_NOT_EMPTY })
+  @IsString({ message: AuthErrorMessage.USERNAME_IS_STRING })
   username: string;
 
   @ApiProperty({ example: 'admin', description: 'password of the account' })
-  @IsNotEmpty({ message: AUTH_ERROR_MESSAGE.USERNAME_IS_NOT_EMPTY })
-  @IsString({ message: AUTH_ERROR_MESSAGE.USERNAME_IS_STRING })
+  @IsNotEmpty({ message: AuthErrorMessage.USERNAME_IS_NOT_EMPTY })
+  @IsString({ message: AuthErrorMessage.USERNAME_IS_STRING })
   password: string;
 }
 
@@ -27,9 +28,9 @@ export interface IJWTPayload {
 }
 
 export interface IRequestLoginValidator {
-  isValid: boolean;
-  errMsg: string | string[];
-  data: User | null;
+  hasError: boolean;
+  errMsg: string | string[] | null;
+  data: AppUser | null;
 }
 
 export interface ResponseLogin {

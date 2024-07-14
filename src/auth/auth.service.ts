@@ -2,16 +2,12 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/user/user.schema';
-import {
-  IJWTPayload,
-  IRequestLoginValidator,
-  ResponseLogin,
-  ResquestLoginDTO,
-} from './auth.dto';
+import { IJWTPayload, ResponseLogin, ResquestLoginDTO } from './auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { AppUser } from './app-user.schema';
-import { AUTH_ERROR_MESSAGE } from 'src/common/enum/error-message';
 import { PasswordEncoder } from 'src/common/password-encode/password-encoder.service';
+import { AuthValidator } from 'src/common/validation/auth.validator';
+import { Builder } from 'builder-pattern';
 
 /**
  * Service responsible for handling auth-related operations.
@@ -40,44 +36,34 @@ export class AuthService {
       .lean()
       .exec()) as AppUser;
 
-    const checkRequestLogin: IRequestLoginValidator =
+    const checkRequestLogin: AuthValidator =
       await this.validateRequestLoginPayload(appUser, requestLogin);
 
-    if (!checkRequestLogin.isValid) {
-      throw new BadRequestException(checkRequestLogin.errMsg);
+    if (checkRequestLogin.hasError) {
+      throw new BadRequestException(checkRequestLogin.message);
     }
 
+    const user = appUser.user;
     const accessToken = await this.extractToken(appUser);
 
-    return { token: accessToken, user: checkRequestLogin.data };
+    return Builder<ResponseLogin>().token(accessToken).user(user).build();
   }
 
-  // In the future, we want move this function to AuthValidator when after builded the CommonValidator
+  /**
+   * Handle validate login payload
+   * @param AppUser
+   * @param ResquestLoginDTO
+   * @returns AuthValidator object
+   */
   private async validateRequestLoginPayload(
     appUser: AppUser,
     requestLogin: ResquestLoginDTO,
-  ): Promise<IRequestLoginValidator> {
-    let isValid: boolean = true;
-    let errMsg: string = '';
-    let data: User | null = appUser.user;
+  ): Promise<AuthValidator> {
+    const result = await new AuthValidator(new PasswordEncoder()).validate(
+      appUser,
+      requestLogin,
+    );
 
-    if (
-      !appUser ||
-      (await this.passwordEncoder.comparePasswords(
-        requestLogin.password,
-        appUser.password,
-      ))
-    ) {
-      isValid = false;
-      errMsg = AUTH_ERROR_MESSAGE.UNAUTHORIZED;
-      data = null;
-    }
-
-    const result: IRequestLoginValidator = {
-      isValid: isValid,
-      errMsg: errMsg,
-      data: data,
-    };
     return result;
   }
 
