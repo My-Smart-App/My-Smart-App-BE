@@ -1,6 +1,7 @@
 // src/users/user.entity.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
+import { AppUser } from 'src/auth/app-user.schema';
 
 @Schema({ collection: 'user' })
 export class User extends Document {
@@ -17,10 +18,17 @@ export class User extends Document {
   description: string;
 
   @Prop({ default: Date.now, comments: 'Time of created' })
-  created_at: Date;
+  createdAt: Date;
 
   @Prop({ default: Date.now, comments: 'Time of updated' })
-  updated_by: Date;
+  updatedAt: Date;
+
+  @Prop({
+    type: Types.ObjectId,
+    ref: 'AppUser',
+    unique: true,
+  })
+  role: AppUser;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -1,5 +1,5 @@
 import { Body, Controller, Post, Res } from '@nestjs/common';
-import { ResquestLoginDTO } from './auth.dto';
+import { ResponseLogin, ResquestLoginDTO } from './auth.dto';
 import { AuthService } from './auth.service';
 import { Builder } from 'builder-pattern';
 import { MSAResponse } from 'src/common/response/msa-response';
@@ -23,17 +23,17 @@ export class AuthController {
   async login(
     @Res() res: Response,
     @Body() requestLoginDTO: ResquestLoginDTO,
-  ): Promise<MSAResponse<User>> {
-    const { token, user } =
-      await this.authService.extractToken(requestLoginDTO);
+  ): Promise<MSAResponse<User | null>> {
+    const { token, user }: ResponseLogin =
+      await this.authService.handleLogin(requestLoginDTO);
 
     res.cookie('MSA_TOKEN', token, {
       httpOnly: true,
-      //   secure: true,
+      // secure: true,
       maxAge: 60 * 60 * 1000 * 24 * 90,
     });
 
-    return Builder<MSAResponse<User>>()
+    return Builder<MSAResponse<User | null>>()
       .status(HTTP_STATUS.OK)
       .message(HTTP_MESSAGE.OK)
       .data(user)
