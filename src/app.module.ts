@@ -10,6 +10,7 @@ import { AppRole, AppRoleSchema } from './auth/app-role.schema';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
 import { JwtService } from '@nestjs/jwt';
+import { PasswordEncoder } from './common/password-encode/password-encoder.service';
 
 @Module({
   imports: [
@@ -27,7 +28,7 @@ import { JwtService } from '@nestjs/jwt';
     ]),
   ],
   controllers: [UserController, AuthController],
-  providers: [UserService, AuthService, JwtService],
+  providers: [UserService, AuthService, JwtService, PasswordEncoder],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  my-smart-app-db:
+    image: mongo:6.0
+    container_name: my-smart-app-db
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: my_smart_app_db
+    ports:
+      - '27018:27017'
+    volumes:
+     - ~/projects/myproject_nodejs/my-smart-app/my-smart-app-data:/var/lib/mongodb
+
+  my-smart-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my-smart-app-container
+    restart: always
+    ports:
+      - '8000:8000'
+    command: yarn start:dev
+    depends_on:
+      - my-smart-app-db
+
