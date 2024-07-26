@@ -1,13 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from 'src/user/user.schema';
 import { IJWTPayload, ResponseLogin, ResquestLoginDTO } from './auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { AppUser } from './app-user.schema';
-import { PasswordEncoder } from 'src/common/password-encode/password-encoder.service';
-import { AuthValidator } from 'src/common/validation/auth.validator';
 import { Builder } from 'builder-pattern';
+import { User } from '../user/user.schema';
+import { AuthValidator } from '../common/validation/auth.validator';
+import { PasswordEncoder } from '../common/password-encode/password-encoder.service';
 
 /**
  * Service responsible for handling auth-related operations.
@@ -20,7 +20,6 @@ export class AuthService {
     @InjectModel(User.name)
     private readonly appUserModel: Model<AppUser>,
     private readonly jwtService: JwtService,
-    private readonly passwordEncoder: PasswordEncoder,
   ) {}
 
   /**

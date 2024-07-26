@@ -1,8 +1,8 @@
 import { AppUser } from 'src/auth/app-user.schema';
-import { ResquestLoginDTO } from 'src/auth/auth.dto';
 import { PasswordEncoder } from '../password-encode/password-encoder.service';
 import { AuthErrorMessage } from '../enum/error-message';
 import { BaseValidator } from './base-validator';
+import { ResquestLoginDTO } from '../../auth/auth.dto';
 
 export class AuthValidator extends BaseValidator<AppUser, AuthValidator> {
   constructor(private readonly passwordEncoder: PasswordEncoder) {

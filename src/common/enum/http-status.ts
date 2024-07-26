@@ -1,4 +1,4 @@
-export const enum HTTP_STATUS {
+export const enum HttpStatus {
   OK = 200,
   BAD_REQUEST = 400,
   CONFLICT = 409,
@@ -7,7 +7,7 @@ export const enum HTTP_STATUS {
   INTERNAL_ERROR = 500,
 }
 
-export const enum HTTP_MESSAGE {
+export const enum HttpMessage {
   OK = 'OK',
   BAD_REQUEST = 'Bad Request',
   CONFLICT = 'Conflict',

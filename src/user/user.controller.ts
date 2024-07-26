@@ -2,9 +2,9 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.schema';
 import { RequestUserCreate } from './user.dto';
-import { MSAResponse } from 'src/common/response/msa-response';
-import { HTTP_MESSAGE, HTTP_STATUS } from 'src/common/enum/http-status';
+import { HttpMessage, HttpStatus } from 'src/common/enum/http-status';
 import { Builder } from 'builder-pattern';
+import { MSAResponse } from '../common/response/msa-response';
 
 /**
  * UserController handles incoming HTTP requests related to user operations.
@@ -22,8 +22,8 @@ export class UserController {
   async findAllUser(): Promise<MSAResponse<User[]>> {
     const users = await this.userService.findAll();
     return Builder<MSAResponse<User[]>>()
-      .status(HTTP_STATUS.OK)
-      .message(HTTP_MESSAGE.OK)
+      .status(HttpStatus.OK)
+      .message(HttpMessage.OK)
       .data(users)
       .build();
   }
@@ -39,8 +39,8 @@ export class UserController {
   ): Promise<MSAResponse<User>> {
     const userCreated = await this.userService.createUser(createUserDto);
     return Builder<MSAResponse<User>>()
-      .status(HTTP_STATUS.OK)
-      .message(HTTP_MESSAGE.OK)
+      .status(HttpStatus.OK)
+      .message(HttpMessage.OK)
       .data(userCreated)
       .build();
   }

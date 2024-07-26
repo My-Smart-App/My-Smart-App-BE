@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Types } from 'mongoose';
 import { AppRole } from './app-role.schema';
-import { User } from 'src/user/user.schema';
+import { User } from '../user/user.schema';
 
 @Schema({ collection: 'app_user' })
 export class AppUser extends Document {

@@ -3,7 +3,7 @@ import {
   ValidationError,
   BadRequestException,
 } from '@nestjs/common';
-import { HTTP_MESSAGE, HTTP_STATUS } from '../enum/http-status';
+import { HttpMessage, HttpStatus } from '../enum/http-status';
 
 export class MSAValidationPipe extends ValidationPipe {
   constructor() {
@@ -21,8 +21,8 @@ export class MSAValidationPipe extends ValidationPipe {
 
         return new BadRequestException({
           message: errors,
-          error: HTTP_MESSAGE.BAD_REQUEST,
-          statusCode: HTTP_STATUS.BAD_REQUEST,
+          error: HttpMessage.BAD_REQUEST,
+          statusCode: HttpStatus.BAD_REQUEST,
         });
       },
     });

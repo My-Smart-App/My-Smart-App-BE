@@ -1,7 +1,7 @@
 // src/users/user.entity.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { AppUser } from 'src/auth/app-user.schema';
+import { AppUser } from '../auth/app-user.schema';
 
 @Schema({ collection: 'user' })
 export class User extends Document {
@@ -26,9 +26,8 @@ export class User extends Document {
   @Prop({
     type: Types.ObjectId,
     ref: 'AppUser',
-    unique: true,
   })
-  role: AppUser;
+  appUser: AppUser;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

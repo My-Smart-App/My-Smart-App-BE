@@ -16,5 +16,9 @@
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
       "strictPropertyInitialization": false,
-  }
+      "paths": {
+        "src/*": ["src/*"],
+        "tests/*": ["__tests__/*"]
+      }
+  },
 }

@@ -2,10 +2,10 @@ import { Body, Controller, Post, Res } from '@nestjs/common';
 import { ResponseLogin, ResquestLoginDTO } from './auth.dto';
 import { AuthService } from './auth.service';
 import { Builder } from 'builder-pattern';
-import { MSAResponse } from 'src/common/response/msa-response';
-import { User } from 'src/user/user.schema';
-import { HTTP_MESSAGE, HTTP_STATUS } from 'src/common/enum/http-status';
 import { Response } from 'express';
+import { MSAResponse } from '../common/response/msa-response';
+import { User } from '../user/user.schema';
+import { HttpMessage, HttpStatus } from '../common/enum/http-status';
 
 /**
  * AuthController handles incoming HTTP requests related to auth operations.
@@ -34,8 +34,8 @@ export class AuthController {
     });
 
     return Builder<MSAResponse<User | null>>()
-      .status(HTTP_STATUS.OK)
-      .message(HTTP_MESSAGE.OK)
+      .status(HttpStatus.OK)
+      .message(HttpMessage.OK)
       .data(user)
       .build();
   }

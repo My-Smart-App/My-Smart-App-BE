@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
-import { AuthErrorMessage } from 'src/common/enum/error-message';
-import { User } from 'src/user/user.schema';
 import { AppUser } from './app-user.schema';
+import { AuthErrorMessage } from '../common/enum/error-message';
+import { User } from '../user/user.schema';
 
 interface IRequestLoginDTO {
   username: string;
