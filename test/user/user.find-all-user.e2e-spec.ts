@@ -1,10 +1,10 @@
 import { HttpStatus } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Types } from 'mongoose';
-import { UserController } from '../src/user/user.controller';
-import { UserService } from '../src/user/user.service';
-import { HttpMessage } from '../src/common/enum/http-status';
-import { User } from '../src/user/user.schema';
+import { UserController } from '../../src/user/user.controller';
+import { UserService } from '../../src/user/user.service';
+import { HttpMessage } from '../../src/common/enum/http-status';
+import { User } from '../../src/user/user.schema';
 
 const mockFindAllUser: User[] = [
   {
