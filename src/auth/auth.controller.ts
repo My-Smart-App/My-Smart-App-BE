@@ -9,7 +9,8 @@ import { HttpMessage, HttpStatus } from '../common/enum/http-status';
 
 /**
  * AuthController handles incoming HTTP requests related to auth operations.
- * @created 2024-07-06 Initial creation of AuthController by NhatNHH
+ * @author NhatNHH
+ * @created 2024-07-06
  */
 @Controller('/v1/auth')
 export class AuthController {
@@ -17,6 +18,7 @@ export class AuthController {
   /**
    * Validate payload and authorization
    * @param ResquestLoginDTO
+   * @created 2024-07-06
    * @returns Message of Auth and save JWT on cookie only
    */
   @Post('/login')

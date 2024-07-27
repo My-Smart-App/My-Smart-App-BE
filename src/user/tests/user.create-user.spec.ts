@@ -1,6 +1,5 @@
 import { HttpStatus } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Types } from 'mongoose';
 import { UserController } from '../user.controller';
 import { UserService } from '../user.service';
 import { HttpMessage } from '../../common/enum/http-status';
@@ -11,14 +10,23 @@ import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 import { RequestUserCreate } from '../user.dto';
 
-const payload: RequestUserCreate = {
+/**
+ * TESTING API CREATE USER
+ * Path: v1/user/create
+ * @author NhatNHH
+ * @create 2024-07-27
+ */
+
+// Payload normal
+const payloadNormal: RequestUserCreate = {
   name: 'User A',
   age: 25,
   email: 'testA@example.com',
   description: 'Test Description',
 };
 
-const expectedDataNormal = {
+// Expected Data Normal
+const expectedDataNormal: object = {
   name: 'User A',
   age: 25,
   email: 'testA@example.com',
@@ -26,6 +34,9 @@ const expectedDataNormal = {
 };
 
 describe('UserController', () => {
+  /**
+   * INITIALIZE DATABASE AND DATA EXAMPLE
+   */
   let userController: UserController;
   let userService: UserService;
   let mongod: MongoMemoryServer;
@@ -57,12 +68,19 @@ describe('UserController', () => {
     await userModel.deleteMany({});
   });
 
+  /**
+   * MAIN TESTING
+   */
   describe('createUser', () => {
+    /**
+     * CASE NORMAL
+     * Should return an MSAResponse with an user created
+     */
     const detailNormal: string = `**CASE NORMAL** 
         Should return an MSAResponse with an user created`;
 
     it(detailNormal, async () => {
-      const response = await userController.createUser(payload);
+      const response = await userController.createUser(payloadNormal);
 
       expect(response.status).toBe(HttpStatus.OK);
       expect(response.message).toBe(HttpMessage.OK);

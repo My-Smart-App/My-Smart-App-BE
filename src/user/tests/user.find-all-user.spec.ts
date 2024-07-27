@@ -10,11 +10,20 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 
+/**
+ * TESTING API FIND ALL USER
+ * Path: v1/user/users
+ * @author NhatNHH
+ * @create 2024-07-27
+ */
+
+// Common Data
 const mockCreatedAt = new Date();
 const mockUpdatedAt = new Date();
 const mockAppUser = new Types.ObjectId();
 
-const mockUser = [
+// Mock user data
+const mockUser: object[] = [
   {
     name: 'Test User',
     age: 25,
@@ -26,7 +35,8 @@ const mockUser = [
   },
 ];
 
-const expectedDatasNormal = [
+// Expected Datas Normal
+const expectedDatasNormal: object[] = [
   {
     name: 'Test User',
     age: 25,
@@ -39,6 +49,9 @@ const expectedDatasNormal = [
 ];
 
 describe('UserController', () => {
+  /**
+   * INITIALIZE DATABASE AND DATA EXAMPLE
+   */
   let userController: UserController;
   let userService: UserService;
   let mongod: MongoMemoryServer;
@@ -71,6 +84,9 @@ describe('UserController', () => {
     await userModel.insertMany(mockUser);
   });
 
+  /**
+   * MAIN TESTING
+   */
   describe('findAllUser', () => {
     const detailNormal: string = `**CASE NORMAL** 
         Should return an MSAResponse with an array of users`;
