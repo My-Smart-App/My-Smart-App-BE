@@ -8,7 +8,8 @@ import { MSAResponse } from '../common/response/msa-response';
 
 /**
  * UserController handles incoming HTTP requests related to user operations.
- * @created 2024-07-06 Initial creation of UserController by NhatNHH
+ * @author NhatNHH
+ * @created 2024-07-06
  */
 @Controller('v1/user')
 export class UserController {
@@ -16,6 +17,8 @@ export class UserController {
 
   /**
    * Retrieves all users from the database.
+   * @author NhatNHH
+   * @created 2024-07-06
    * @returns MSAResponse exists an array of User entities representing all users in the database.
    */
   @Get('/users')
@@ -30,6 +33,8 @@ export class UserController {
 
   /**
    * Create a new User
+   * @author NhatNHH
+   * @created 2024-07-06
    * @param RequestUserCreate
    * @returns MSAResponse exists an user created from the database
    */

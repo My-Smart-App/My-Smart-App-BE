@@ -12,7 +12,8 @@ import { PasswordEncoder } from '../common/password-encode/password-encoder.serv
 /**
  * Service responsible for handling auth-related operations.
  * Provides methods to retrieve, create, update, and delete users.
- * @created 2024-07-06 Initial creation of UserService by NhatNHH
+ * @author NhatNHH
+ * @created 2024-07-06
  */
 @Injectable()
 export class AuthService {
@@ -25,6 +26,7 @@ export class AuthService {
   /**
    * Handle Authorization
    * @param ResquestLoginDTO
+   * @created 2024-07-06
    * @returns access token and user information
    */
   public async handleLogin(
@@ -52,6 +54,7 @@ export class AuthService {
    * Handle validate login payload
    * @param AppUser
    * @param ResquestLoginDTO
+   * @created 2024-07-06
    * @returns AuthValidator object
    */
   private async validateRequestLoginPayload(

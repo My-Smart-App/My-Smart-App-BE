@@ -21,7 +21,8 @@ export class UserService {
    * @returns An array of User entities representing all users in the database.
    */
   public async findAll(): Promise<User[]> {
-    return await this.userModel.find().exec();
+    let result: User[] = await this.userModel.find().exec();
+    return result;
   }
 
   /**
