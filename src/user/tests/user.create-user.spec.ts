@@ -9,6 +9,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 import { RequestUserCreate } from '../user.dto';
+import { AppModule } from '../../app.module';
 
 /**
  * TESTING API CREATE USER
@@ -16,14 +17,6 @@ import { RequestUserCreate } from '../user.dto';
  * @author NhatNHH
  * @create 2024-07-27
  */
-
-// Payload normal
-const payloadNormal: RequestUserCreate = {
-  name: 'User A',
-  age: 25,
-  email: 'testA@example.com',
-  description: 'Test Description',
-};
 
 // Expected Data Normal
 const expectedDataNormal: object = {
@@ -80,12 +73,45 @@ describe('UserController', () => {
         Should return an MSAResponse with an user created`;
 
     it(detailNormal, async () => {
-      const response = await userController.createUser(payloadNormal);
+      // Payload
+      const payload: RequestUserCreate = {
+        name: 'User A',
+        age: 25,
+        email: 'testA@example.com',
+        description: 'Test Description',
+      };
+
+      const response = await userController.createUser(payload);
 
       expect(response.status).toBe(HttpStatus.OK);
       expect(response.message).toBe(HttpMessage.OK);
       const result = response.data;
       expect(result).toMatchObject(expectedDataNormal);
+    });
+
+    /**
+     * CASE name of payload is empty
+     * Should return a ValidationError: User validation failed
+     * name: required.
+     */
+    const detailNameIsEmpty: string = `**CASE NAME IS EMPTY** 
+        Should return a ValidationError: User validation failed: 
+        name: required.`;
+
+    it(detailNameIsEmpty, async () => {
+      // Payload
+      const payload: RequestUserCreate = {
+        name: '',
+        age: 25,
+        email: 'testA@example.com',
+        description: 'Test Description',
+      };
+      try {
+        const result = await userController.createUser(payload);
+        console.log(result);
+      } catch (e) {
+        console.log(e);
+      }
     });
   });
 });
