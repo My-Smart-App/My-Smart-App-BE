@@ -6,7 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { AppUser } from './app-user.schema';
 import { Builder } from 'builder-pattern';
 import { User } from '../user/user.schema';
-import { AuthValidator } from '../common/validation/auth.validator';
+import { AuthValidator } from './auth.validator';
 import { PasswordEncoder } from '../common/password-encode/password-encoder.service';
 
 /**

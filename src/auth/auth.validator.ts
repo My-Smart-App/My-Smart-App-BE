@@ -1,16 +1,16 @@
-import { AppUser } from 'src/auth/app-user.schema';
-import { PasswordEncoder } from '../password-encode/password-encoder.service';
-import { AuthErrorMessage } from '../enum/error-message';
-import { BaseValidator } from './base-validator';
-import { ResquestLoginDTO } from '../../auth/auth.dto';
+import { PasswordEncoder } from '../common/password-encode/password-encoder.service';
+import { AuthErrorMessage } from '../common/enum/error-message';
+import { BaseValidator, Validator } from '../common/validation/base-validator';
+import { ResquestLoginDTO } from './auth.dto';
+import { AppUser } from './app-user.schema';
 
 /**
  * AuthValidator is a validator class used for authenticating user login requests.
- * @extends BaseValidator<AppUser, AuthValidator>
+ * @extends BaseValidator
  * @author NhatNHH
  * @created 2024-07-07
  */
-export class AuthValidator extends BaseValidator<AppUser, AuthValidator> {
+export class AuthValidator extends Validator<AppUser, AuthValidator> {
   constructor(private readonly passwordEncoder: PasswordEncoder) {
     super();
   }
