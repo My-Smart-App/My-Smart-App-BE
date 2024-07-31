@@ -1,3 +1,5 @@
+import { ConditionalExecutionDecorator } from '../decorator/validation-decorator';
+import { NumberErrorMessage } from '../enum/error-message';
 import { BaseValidator } from './base-validator';
 
 /**
@@ -10,10 +12,27 @@ export class NumberValidator extends BaseValidator<number> {
   constructor(value: number) {
     super(value);
   }
-  public min(min: number): NumberValidator {
+
+  @ConditionalExecutionDecorator
+  public required(): NumberValidator {
+    if (this.value === undefined || this.value === null) {
+      this.addErrorMessage(NumberErrorMessage.REQUIRED);
+    }
     return this;
   }
+
+  @ConditionalExecutionDecorator
+  public min(min: number): NumberValidator {
+    if (this.value < min) {
+      this.addErrorMessage(NumberErrorMessage.MIN);
+    }
+    return this;
+  }
+  @ConditionalExecutionDecorator
   public max(max: number): NumberValidator {
+    if (this.value > max) {
+      this.addErrorMessage(NumberErrorMessage.MAX);
+    }
     return this;
   }
 }
