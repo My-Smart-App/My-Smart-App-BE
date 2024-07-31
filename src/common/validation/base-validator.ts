@@ -45,4 +45,8 @@ export abstract class BaseValidator<T> {
     this.value = value;
     this.message = '';
   }
+  public addErrorMessage(msg: string): void {
+    this.hasError = true;
+    this.message = msg;
+  }
 }

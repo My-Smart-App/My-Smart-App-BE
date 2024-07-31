@@ -15,3 +15,25 @@ export const enum AuthErrorMessage {
   PASSWORD_IS_NOT_EMPTY = 'password_must_not_be_empty',
   UNAUTHORIZED = 'unauthorized',
 }
+
+export const enum StringErrorMessage {
+  IS_EMPTY = 'is_empty',
+  NOT_STRING = 'not_string',
+  MIN_LENGTH = 'min_length',
+  MAX_LENGTH = 'min_length',
+  INVALID_EMAIL = 'invalid_email',
+  REQUIRED = 'required',
+}
+
+export const enum NumberErrorMessage {
+  REQUIRED = 'required',
+  MIN = 'less than min',
+  MAX = 'greater than max',
+}
+
+export const enum DateTimeErrorMessage {
+  INVALID_DATE = 'invalid_date',
+  INVALID_DATETIME = 'invalid_datetime',
+  INVALID_BEFORE_DATE = 'invalid_before_date',
+  INVALID_AFTER_DATE = 'invalid_after_date',
+}
