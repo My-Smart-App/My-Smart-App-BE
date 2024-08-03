@@ -18,7 +18,7 @@ interface IValidator<T, R = boolean> {
  */
 export abstract class Validator<T, R = boolean> implements IValidator<T, R> {
   public hasError: boolean;
-  public message: string | null;
+  public message: string[] | null;
   public data: T | null;
 
   constructor() {
@@ -45,7 +45,7 @@ export abstract class BaseValidator<T> {
     this.value = value;
     this.message = '';
   }
-  public addErrorMessage(msg: string): void {
+  protected addErrorMessage(msg: string): void {
     this.hasError = true;
     this.message = msg;
   }
