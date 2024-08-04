@@ -19,7 +19,7 @@ import { PasswordEncoder } from '../common/password-encode/password-encoder.serv
 export class AuthService {
   constructor(
     @InjectModel(User.name)
-    private readonly appUserModel: Model<AppUser>,
+    private readonly appUserRepository: Model<AppUser>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -32,7 +32,7 @@ export class AuthService {
   public async handleLogin(
     requestLogin: ResquestLoginDTO,
   ): Promise<ResponseLogin> {
-    const appUser: AppUser = (await this.appUserModel
+    const appUser: AppUser = (await this.appUserRepository
       .findOne({ username: requestLogin.username })
       .lean()
       .exec()) as AppUser;

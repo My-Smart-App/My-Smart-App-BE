@@ -1,5 +1,11 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IFindDTO } from '../common/utils-interface/find-dto';
+import { DefaultValue } from '../common/enum/default-value';
+import { Transform } from 'class-transformer';
 
+/**
+ * Payload DTO for create new user
+ */
 interface IRequestUserCreate {
   name: string;
   age: number;
@@ -25,4 +31,29 @@ export class RequestUserCreate implements IRequestUserCreate {
     description: 'Note of the user',
   })
   description: string;
+}
+
+/**
+ * Query DTO for find user with filter and option
+ */
+interface IFindUsersDto extends IFindDTO {}
+
+export class FindUsersDto implements IFindUsersDto {
+  @ApiPropertyOptional({ description: 'Name to search for', type: String })
+  search?: string; //In future, change type to Record<string, string>[]
+
+  @ApiPropertyOptional({
+    description: 'Order by field and value',
+    type: String,
+  })
+  orderBy?: string; // In future, change type to Record<string, string>[]
+
+  @ApiPropertyOptional({ description: 'Limit number of users', type: Number })
+  limit?: number;
+
+  @ApiPropertyOptional({
+    description: 'Offset number of users',
+    type: Number,
+  })
+  offSet?: number;
 }

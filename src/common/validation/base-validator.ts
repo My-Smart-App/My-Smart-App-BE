@@ -18,7 +18,7 @@ interface IValidator<T, R = boolean> {
  */
 export abstract class Validator<T, R = boolean> implements IValidator<T, R> {
   public hasError: boolean;
-  public message: string[] | null;
+  public message: string | string[] | null;
   public data: T | null;
 
   constructor() {
