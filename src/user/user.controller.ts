@@ -1,11 +1,10 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.schema';
-import { RequestUserCreate } from './user.dto';
+import { FindUsersDto, RequestUserCreate } from './user.dto';
 import { HttpMessage, HttpStatus } from 'src/common/enum/http-status';
 import { Builder } from 'builder-pattern';
 import { MSAResponse } from '../common/response/msa-response';
-import { StringValidator } from '../common/validation/string-validator';
 import { UserValidator } from './user.validator';
 
 /**
@@ -24,8 +23,10 @@ export class UserController {
    * @returns MSAResponse exists an array of User entities representing all users in the database.
    */
   @Get('/users')
-  async findAllUser(): Promise<MSAResponse<User[]>> {
-    const users = await this.userService.findAll();
+  async findAllUser(
+    @Query() findUsersDto: FindUsersDto,
+  ): Promise<MSAResponse<User[]>> {
+    const users = await this.userService.findAll(findUsersDto);
     return Builder<MSAResponse<User[]>>()
       .status(HttpStatus.OK)
       .message(HttpMessage.OK)
@@ -43,7 +44,21 @@ export class UserController {
   @Post('/create')
   async createUser(
     @Body() createUserDto: RequestUserCreate,
-  ): Promise<MSAResponse<User>> {
+  ): Promise<MSAResponse<User | UserValidator>> {
+    // Validate payload
+    const userValidated: UserValidator = await new UserValidator().validate(
+      createUserDto,
+    );
+
+    if (userValidated.hasError) {
+      return Builder<MSAResponse<UserValidator>>()
+        .status(HttpStatus.BAD_REQUEST)
+        .message(HttpMessage.BAD_REQUEST)
+        .data(userValidated)
+        .build();
+    }
+
+    // create user
     const userCreated = await this.userService.createUser(createUserDto);
     return Builder<MSAResponse<User>>()
       .status(HttpStatus.OK)

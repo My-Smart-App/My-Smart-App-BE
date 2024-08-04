@@ -92,7 +92,7 @@ describe('UserController', () => {
         Should return an MSAResponse with an array of users`;
 
     it(detailNormal, async () => {
-      const response = await userController.findAllUser();
+      const response = await userController.findAllUser({});
 
       expect(response.status).toBe(HttpStatus.OK);
       expect(response.message).toBe(HttpMessage.OK);
@@ -109,7 +109,7 @@ describe('UserController', () => {
 
     it(detailNoData, async () => {
       await userModel.deleteMany({});
-      const response = await userController.findAllUser();
+      const response = await userController.findAllUser({});
 
       expect(response.status).toBe(HttpStatus.OK);
       expect(response.message).toBe(HttpMessage.OK);
