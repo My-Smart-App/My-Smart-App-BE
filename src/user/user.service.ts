@@ -7,7 +7,6 @@ import {
   IFindDTO,
   checkParamFindDTO,
 } from '../common/utils-interface/find-dto';
-import { escapeRegex } from '../common/regex/regex-func';
 
 /**
  * Service responsible for handling user-related operations.
