@@ -1,7 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IFindDTO } from '../common/utils-interface/find-dto';
-import { DefaultValue } from '../common/enum/default-value';
-import { Transform } from 'class-transformer';
 
 /**
  * Payload DTO for create new user

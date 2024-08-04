@@ -9,7 +9,6 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 import { RequestUserCreate } from '../user.dto';
-import { AppModule } from '../../app.module';
 import { todo } from 'node:test';
 
 /**
